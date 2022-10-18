@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./form.styles.css";
 
-import {
-  toggleModal,
-  editUser,
-  addStudent,
-} from "../../redux/student/student.actions";
-import { useState } from "react";
+import { toggleModal } from "../../redux/student_asyncThunk/students.slice";
+import { addStudent, updateStudent } from "../../redux/student_asyncThunk/students.api.calls";
 
 export const Form = () => {
-  const { openModal, oldUser, lastUserId } = useSelector((state) => state);
+  const { openModal, oldUser, lastUserId } = useSelector((state) => state.student);
   const dispatch = useDispatch();
   const [user, setUser] = useState({ address: "" });
   if (!openModal) return null;
@@ -136,7 +132,7 @@ export const Form = () => {
                   value="Edit"
                   onClick={(e) => {
                     e.preventDefault();
-                    return dispatch(editUser(user));
+                    return dispatch(updateStudent(user));
                   }}
                 />
                 <input

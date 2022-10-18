@@ -31,12 +31,11 @@ thead tr {
   color: white;
 }
 
-tbody tr td:last-child {
+.action__btn{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  padding: .5em auto;
+  column-gap: 8px;
 
 }
 
@@ -46,11 +45,13 @@ tbody tr td:last-child {
 }
 
 button {
+  display: inline;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
   color: white;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .btn__edit {

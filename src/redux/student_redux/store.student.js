@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import logger from "redux-logger";
 
-import studentReducer from "./student/student.reducer";
+import studentReducer from "./student.reducer";
 
 const middlewares = [logger];
 

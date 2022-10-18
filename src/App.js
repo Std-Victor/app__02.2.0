@@ -3,15 +3,14 @@ import "./App.css";
 import { SearchBox } from "./components/Search-box/search-box.component";
 import { View } from "./components/View/view.component";
 import { Form } from "./components/Form/form.component";
-import { fetchData, toggleModal } from "./redux/student/student.actions";
 import { connect } from "react-redux";
+import { fetchStudentsData } from "./redux/student_asyncThunk/students.api.calls";
+import { toggleModal } from "./redux/student_asyncThunk/students.slice";
 
 
 class App extends Component {
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => this.props.fetchData(json));
+    this.props.fetchData()
   }
 
   render() {
@@ -32,11 +31,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  dataFetched : state.dataFetched
+  dataFetched : state.student.dataFetched
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: (data) => dispatch(fetchData(data)),
+  fetchData: () => dispatch(fetchStudentsData()),
   toggleModal: () => dispatch(toggleModal()),
 });
 

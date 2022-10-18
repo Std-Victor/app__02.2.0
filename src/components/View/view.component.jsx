@@ -1,15 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteStudent } from "../../redux/student_asyncThunk/students.api.calls";
+import { getOldUserData } from "../../redux/student_asyncThunk/students.slice";
 
 import "./view.styles.css";
 
-import {
-  getOldUserData,
-  getRemovedId,
-} from "../../redux/student/student.actions";
 
 export const View = () => {
-  const students = useSelector((state) => state.students);
+  const students = useSelector((state) => state.student.studentList);
   const dispatch = useDispatch();
   if (!students || students.length === 0) return null;
   const { id, name, username, email, address, phone } = students[0];
@@ -44,18 +42,20 @@ export const View = () => {
             </td>
             <td>{user.phone}</td>
             <td>
-              <button
-                className="btn__edit"
-                onClick={() => dispatch(getOldUserData(user))}
-              >
-                <i className="fa-solid fa-pen-to-square"></i>
-              </button>
-              <button
-                className="btn__remove"
-                onClick={() => dispatch(getRemovedId(user.id))}
-              >
-                <i className="fa-solid fa-eraser"></i>
-              </button>
+              <div className="action__btn">
+                <button
+                  className="btn__edit"
+                  onClick={() => dispatch(getOldUserData(user))}
+                >
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button
+                  className="btn__remove"
+                  onClick={() => dispatch(deleteStudent(user.id))}
+                >
+                  <i className="fa-solid fa-eraser"></i>
+                </button>
+              </div>
             </td>
           </tr>
         ))}

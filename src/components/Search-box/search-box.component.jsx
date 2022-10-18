@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./search-box.styles.css";
 
-import { search } from "../../redux/student/student.actions";
+import { search } from "../../redux/student_asyncThunk/students.slice";
 
 export const SearchBox = () => {
-  const students = useSelector((state) => state.students);
-  useEffect(() => setList(() => [...students]), []);
+  const students = useSelector((state) => state.student.studentList);
   const [list, setList] = useState();
+  useEffect(() => setList(() => [...students]), []);
   const dispatch = useDispatch();
   const handleChange = (e) =>
     dispatch(
