@@ -13,7 +13,7 @@ export const addStudent = createAsyncThunk(
   async (studentData) => {
     const response = await axios.post(
       "https://jsonplaceholder.typicode.com/users",
-      { studentData }
+      { ...studentData }
     );
     return response.data;
   }

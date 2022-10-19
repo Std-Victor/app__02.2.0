@@ -6,14 +6,16 @@ import { Form } from "./components/Form/form.component";
 import { connect } from "react-redux";
 import { fetchStudentsData } from "./redux/student_asyncThunk/students.api.calls";
 import { toggleModal } from "./redux/student_asyncThunk/students.slice";
-
+import { SnackBar } from "./components/snackBar/SnackBar";
 
 class App extends Component {
+
   componentDidMount() {
-    this.props.fetchData()
+    this.props.fetchData();
   }
 
   render() {
+    
     return (
       <div className="App">
         <h1>Students List</h1>
@@ -25,18 +27,20 @@ class App extends Component {
         </div>
         <View />
         <Form />
+        {this.props.response !== null && <SnackBar />}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  dataFetched : state.student.dataFetched
-})
+const mapStateToProps = (state) => ({
+  dataFetched: state.student.dataFetched,
+  response: state.student.response,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => dispatch(fetchStudentsData()),
   toggleModal: () => dispatch(toggleModal()),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

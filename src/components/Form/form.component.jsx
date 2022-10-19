@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./form.styles.css";
 
-import { toggleModal } from "../../redux/student_asyncThunk/students.slice";
+import { setNull, toggleModal } from "../../redux/student_asyncThunk/students.slice";
 import { addStudent, updateStudent } from "../../redux/student_asyncThunk/students.api.calls";
 
 export const Form = () => {
@@ -132,7 +132,7 @@ export const Form = () => {
                   value="Edit"
                   onClick={(e) => {
                     e.preventDefault();
-                    return dispatch(updateStudent(user));
+                    return (dispatch(updateStudent(user)), setTimeout(()=> dispatch(setNull()), "3500"));
                   }}
                 />
                 <input
@@ -151,7 +151,7 @@ export const Form = () => {
                     Object.keys(user).length >= 6 &&
                     Object.keys(user.address).length >= 3
                   )
-                    return (dispatch(addStudent(user)), setUser({ address: "" }));
+                    return (dispatch(addStudent(user)), setTimeout(()=> dispatch(setNull()), "3500"), setUser({ address: "" }));
                 }}
               />
             )}

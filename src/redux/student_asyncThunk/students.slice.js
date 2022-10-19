@@ -12,8 +12,9 @@ export const studentSlice = createSlice({
   initialState: {
     openModal: false,
     dataFetched: false,
-    pending: false,
+    pending: true,
     error: false,
+    response: null,
   },
   reducers: {
     getOldUserData: (state, action) => {
@@ -26,6 +27,9 @@ export const studentSlice = createSlice({
     },
     search: (state, action) => {
       state.studentList = action.payload;
+    },
+    setNull: (state) => {
+      state.response = null;
     },
   },
   extraReducers: {
@@ -47,9 +51,11 @@ export const studentSlice = createSlice({
     // ADD STUDENT TO THE LIST OF API
     [addStudent.pending]: (state) => {
       state.pending = true;
+      state.response = "";
     },
     [addStudent.fulfilled]: (state, action) => {
       state.pending = false;
+      state.response = true;
       state.studentList = [...state.studentList, action.payload];
       state.lastUserId = state.lastUserId + 1;
       state.openModal = !state.openModal;
@@ -58,14 +64,17 @@ export const studentSlice = createSlice({
     [addStudent.rejected]: (state) => {
       state.error = true;
       state.pending = false;
+      state.response = false;
     },
 
     // UPDATE THE STUDENT IN THE API
     [updateStudent.pending]: (state) => {
       state.pending = true;
+      state.response = "";
     },
     [updateStudent.fulfilled]: (state, action) => {
       state.pending = false;
+      state.response = true;
       state.studentList = state.studentList.map((std) =>
         std.id === action.payload.id ? action.payload : std
       );
@@ -75,13 +84,17 @@ export const studentSlice = createSlice({
     [updateStudent.rejected]: (state) => {
       state.error = true;
       state.pending = false;
+      state.response = false;
     },
 
     // REMOVE THE STUDENT FROM THE API
     [deleteStudent.pending]: (state) => {
       state.pending = true;
+      state.response = "";
     },
     [deleteStudent.fulfilled]: (state, action) => {
+      state.pending = false;
+      state.response = true;
       state.studentList = state.studentList.filter(
         (std) => std.id !== action.payload
       );
@@ -89,10 +102,12 @@ export const studentSlice = createSlice({
     [deleteStudent.rejected]: (state) => {
       state.error = true;
       state.pending = false;
+      state.response = false;
     },
   },
 });
 
-export const { getOldUserData, toggleModal, search } = studentSlice.actions;
+export const { getOldUserData, toggleModal, search, setNull } =
+  studentSlice.actions;
 
 export default studentSlice.reducer;

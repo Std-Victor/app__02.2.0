@@ -6,6 +6,9 @@
 table {
   border-collapse: collapse;
   border-spacing: 1rem;
+  box-shadow: #0000001a 0px 4px 12px;
+  border: 1px solid #b3b3b3;
+  width: 93.75rem;
 }
 
 th {
@@ -15,7 +18,7 @@ th {
 
 th,
 td {
-  border-bottom: 1px solid rgb(179, 179, 179);
+  border-bottom: 1px solid #b3b3b3;
   padding: 0.2rem 1.2rem;
 }
 
@@ -23,8 +26,8 @@ td span {
   padding: 6px 0;
 }
 
-tbody tr:nth-child(2n + 1) {
-  background-color: #eeeeee;
+tbody tr:nth-child(2n + 1){
+  background-color: #eee;
 }
 thead tr {
   background-color: #da1c1c;
@@ -60,4 +63,21 @@ button {
 
 .btn__remove {
   background-color: #da1c1c;
+}
+
+.skeleton {
+  height: 2.7109rem;
+  width: 100%;
+  background-color: #ececec;
+  animation: skeleton .8s infinite alternate;
+}
+
+td[colspan='7'] {
+  padding: 0 !important;
+}
+
+@keyframes skeleton {
+  to {
+    opacity: .1;
+  }
 }
